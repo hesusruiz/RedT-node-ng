@@ -33,7 +33,9 @@ DATA_DIR="/root/alastria/data_dir"
 
 # The directory where immutable blockchain data resides
 # This data is query-only, so you could place it on a different type of storage
-DATA_ANCIENT="/root/alastria/data_ancient"
+# The default location is inside data_dir, but you can uncomment the line below to make it separate,
+# so you can easily place it in a separate cheaper storage device (because this is read-only)
+# DATA_ANCIENT="/root/alastria/data_ancient"
 
 # The directory where configuration data and some scripts reside
 CONFIG_DIR="/root/alastria/config"

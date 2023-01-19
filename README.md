@@ -29,7 +29,6 @@ The structure of the directory is the following:
 │   │   └── <normally empty, unless you manage wallet accounts in the node>
 │   ├── permissioned-nodes.json <copy of the file in config directory>
 │   └── static-nodes.json <copy of the file in config directory>
-├── data_ancient <created only after starting Geth for the first time>
 ├── secrets
 │   └── nodekey
 ├── compose.yaml
@@ -53,8 +52,6 @@ The `config` directory has two files:
 
 The `data_dir` directory contains essentially the databases and keystore. The location is specified in the `start_geth.sh` file because it changes the default location from Ethereum.
 
-The `data_ancient` directory is the data directory for ancient chain segments. The location is specified in the `start_geth.sh` file because it changes the default location from Ethereum, which is inside the `data_dir`. Having it separated facilitates storing it in a separate storage device which may be cheaper, as the data here is immutable and read-only.
-
 The `secrets` directory contains the `nodekey` file with the private key of the node, representing the Ethereum identity of the node. The `secrets`` directory and the `nodekey` file have to be considered sensitive material and managed as a server private key. Anybody with the `nodekey` can impersonate as your node.
 
 `compose.yaml` and `Dockerfile` are the Docker files to run the node as a container.
@@ -73,7 +70,7 @@ Where XX is your company/entity name, Y is the number of processors of the machi
 
 This is the name that will appear in the public listings of nodes of the network. It does not have any other usage.
 
-The `config/start_geth.sh` file is commented so you can understand the purpose of each parameter.
+The `config/start_geth.sh` file sets some other parameters. The file is commented so you can understand the purpose of each parameter.
 
 ## First-time initialization
 
@@ -91,7 +88,7 @@ enode: 341d5a3f63295e83764c8743dd2a01cdcc18871f258d8e13a8838dc90cddf3aec6fd28ca6
 
 You should modify the contents of the `secrets/nodekey` file with the hex string for `nodekey` exactly as displayed.
 
-**Warning: do not use the nodekey provided as an example, because this is a private key and should be treated exactly like one.**
+**Warning: do not use the nodekey provided as an example. You should create your own individual private key, because this is a private key and should be treated exactly like one.**
 
 Make a copy of the value displayed in `enode`. It is the public key associated to the private key and it will be needed to create the `enode` (essentially the public address of your node) and perform the permissioning in the RedT network.
 
