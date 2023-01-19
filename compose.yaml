@@ -1,0 +1,30 @@
+# Compose file for Alastria RedT node
+services:
+  alanode:
+
+    # Build our image so we control the environment
+    build: .
+
+    # Use "validator", "regular" or "boot" so tools could use those names
+    container_name: "regular"
+
+    # Enable the container to restart automatically after node reboot, for example
+    restart: unless-stopped
+
+    # Extend the period that Docker uses (10s by default) for killing forcefully the process
+    stop_grace_period: 30s
+
+    volumes:
+      - ".:/root/alastria"
+
+    ports:
+      # For P2P comms
+      - "21000:21000/tcp"
+      - "21000:21000/udp"
+
+      # For HTTP JSON-RPC from clients
+      - "22000:22000"
+
+      # For WebSocket JSON-RPC clients.
+      # Separate from HTTP so firewall rules can be applied separately easily.
+      - "22001:22001"
