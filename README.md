@@ -20,7 +20,7 @@ The structure of the directory is the following:
 │   ├── geth
 │   └── newnodekey
 ├── config
-│   ├── entrypoint.sh
+│   ├── start_geth.sh
 │   └── permissioned-nodes.json
 ├── data_dir <created only after starting Geth for the first time>
 │   ├── geth
@@ -44,6 +44,20 @@ The `bin` directory has two pre-built binaries for Linux that you have to make s
 $ chmod +x bin/geth
 $ chmod +x bin/newnodekey
 ```
+
+The `config` directory has two files:
+
+- `start_geth.sh` is the shell script that sets some parameters that will be used in the command line of `geth` and finally starts the `geth` executable.
+
+- `permissioned-nodes.json` is a JSON file with the public addresses of the other relevant nodes in the network. If your node is a regular node, this list is the list of boot nodes, a set of nodes run voluntarily by some entities participating in the network that help bootstrap the p2p connectivity of regular nodes. Given the nature of the Ethereum p2p layer, a node does not have to connect directly to all other nodes in the network, and instead the messages are propagated across the whole network using an epidemic protocol that provides full reachability. Of course, the administrator of one node can decide not to accept connections from some other nodes. 
+
+The `data_dir` directory contains essentially the databases and keystore. The location is specified in the `start_geth.sh` file because it changes the default location from Ethereum.
+
+The `data_ancient` directory is the data directory for ancient chain segments. The location is specified in the `start_geth.sh` file because it changes the default location from Ethereum, which is inside the `data_dir`. Having it separated facilitates storing it in a separate storage device which may be cheaper, as the data here is immutable and read-only.
+
+The `secrets` directory contains the `nodekey` file with the private key of the node, representing the Ethereum identity of the node. The `secrets`` directory and the `nodekey` file have to be considered sensitive material and managed as a server private key. Anybody with the `nodekey` can impersonate as your node.
+
+`compose.yaml` and `Dockerfile` are the Docker files to run the node as a container.
 
 ## Setting some configuration parameters
 
