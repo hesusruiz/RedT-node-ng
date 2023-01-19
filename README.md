@@ -1,10 +1,11 @@
 <!-- vscode-markdown-toc -->
-* 1. [Setting some configuration parameters](#Settingsomeconfigurationparameters)
-* 2. [First-time initialization](#First-timeinitialization)
-	* 2.1. [Generate nodekey and enode address](#Generatenodekeyandenodeaddress)
-	* 2.2. [Testing that your node starts](#Testingthatyournodestarts)
-	* 2.3. [Permissioning](#Permissioning)
-	* 2.4. [:bulb: Quick Guide for [docker-compose](https://docs.docker.com/compose/)](#bulb:QuickGuidefordocker-composehttps:docs.docker.comcompose)
+* 1. [Installation & configuration](#Installationconfiguration)
+	* 1.1. [Setting some configuration parameters](#Settingsomeconfigurationparameters)
+	* 1.2. [First-time initialization](#First-timeinitialization)
+		* 1.2.1. [Generate nodekey and enode address](#Generatenodekeyandenodeaddress)
+		* 1.2.2. [Testing that your node starts](#Testingthatyournodestarts)
+		* 1.2.3. [Permissioning](#Permissioning)
+		* 1.2.4. [:bulb: Quick Guide for [docker-compose](https://docs.docker.com/compose/)](#bulb:QuickGuidefordocker-composehttps:docs.docker.comcompose)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -18,7 +19,9 @@ Alastria RedT node running Quorum Geth 22.7.4
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Slack Status](https://img.shields.io/badge/slack-join_chat-white.svg?logo=slack)](https://alastria.slack.com/)
 
-# Installation & configuration
+
+
+##  1. <a name='Installationconfiguration'></a>Installation & configuration
 
 The first step it to clone or download the repository to the machine where you want to install and operate the Red T node and enter into the cloned directory.
 
@@ -70,7 +73,7 @@ The `secrets` directory contains the `nodekey` file with the private key of the 
 
 `compose.yaml` and `Dockerfile` are the Docker files to run the node as a container.
 
-##  1. <a name='Settingsomeconfigurationparameters'></a>Setting some configuration parameters
+###  1.1. <a name='Settingsomeconfigurationparameters'></a>Setting some configuration parameters
 
 The configuration parameters are defined in the `config/start_geth.sh` shell script, which it is the one that starts the `geth` executable inside the container.
 
@@ -86,11 +89,11 @@ This is the name that will appear in the public listings of nodes of the network
 
 The `config/start_geth.sh` file sets some other parameters. The file is commented so you can understand the purpose of each parameter.
 
-##  2. <a name='First-timeinitialization'></a>First-time initialization
+###  1.2. <a name='First-timeinitialization'></a>First-time initialization
 
 **Warning: do this only the first time you configure a new node. The resulting `nodekey` file is the private key representing the cryptographic identity of your node and should be the same for the whole life of the node. You should also make a safe backup of the file just in case**
 
-###  2.1. <a name='Generatenodekeyandenodeaddress'></a>Generate nodekey and enode address
+####  1.2.1. <a name='Generatenodekeyandenodeaddress'></a>Generate nodekey and enode address
 
 Generate a new `nodekey` and get the associated `enode` by running the `newnodekey` executable:
 
@@ -106,7 +109,7 @@ You should modify the contents of the `secrets/nodekey` file with the hex string
 
 Make a copy of the value displayed in `enode`. It is the public key associated to the private key and it will be needed to create the `enode` (essentially the public address of your node) and perform the permissioning in the RedT network.
 
-###  2.2. <a name='Testingthatyournodestarts'></a>Testing that your node starts
+####  1.2.2. <a name='Testingthatyournodestarts'></a>Testing that your node starts
 
 We will test that everything is correct with the configuration. However, your node is not yet permissioned so it will not be able to connect to the network yet. Permissioning is described below.
 
@@ -130,7 +133,7 @@ $ ./logs.sh
 
 You should see the node initializing and starting to try to contact peers. However, the node is not yet permissioned, so it can not participate in the blockchain network yet.
 
-###  2.3. <a name='Permissioning'></a>Permissioning
+####  1.2.3. <a name='Permissioning'></a>Permissioning
 
 In order to perform permissioning, follow these steps:
 
@@ -168,6 +171,6 @@ To restart the node:
 $ docker compose restart
 ```
 
-###  2.4. <a name='bulb:QuickGuidefordocker-composehttps:docs.docker.comcompose'></a>:bulb: Quick Guide for [docker-compose](https://docs.docker.com/compose/)
+####  1.2.4. <a name='bulb:QuickGuidefordocker-composehttps:docs.docker.comcompose'></a>:bulb: Quick Guide for [docker-compose](https://docs.docker.com/compose/)
 
 
