@@ -112,7 +112,6 @@ PRIVATE_KEY="${SECRETS_DIR}/nodekey"
 GLOBAL_ARGS="--networkid $NETID \
 --identity $NODE_NAME \
 --datadir ${DATA_DIR} \
---datadir.ancient ${DATA_ANCIENT} \
 --port $P2P_PORT \
 --permissioned \
 --cache $CACHE \
