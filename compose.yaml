@@ -6,15 +6,18 @@ services:
     build: .
 
     # Use "validator", "regular" or "boot" so tools could use those names
+    # But you can use whatever container name you wish for your environment
     container_name: "regular"
 
     # Enable the container to restart automatically after node reboot, for example
     restart: unless-stopped
 
     # Extend the period that Docker uses (10s by default) for killing forcefully the process
-    stop_grace_period: 30s
+    # This is needed so Geth can have enough time to flush its caches
+    stop_grace_period: 2m
 
     volumes:
+      # Map the current directory to an internal one so Geth can store the chain in the docker host
       - ".:/root/alastria"
 
     ports:
@@ -26,5 +29,5 @@ services:
       - "22000:22000"
 
       # For WebSocket JSON-RPC clients.
-      # Separate from HTTP so firewall rules can be applied separately easily.
+      # Separate from HTTP so specific firewall rules can be applied easily.
       - "22001:22001"

@@ -5,7 +5,9 @@
 		* 1.2.1. [Generate nodekey and enode address](#Generatenodekeyandenodeaddress)
 		* 1.2.2. [Testing that your node starts](#Testingthatyournodestarts)
 		* 1.2.3. [Permissioning](#Permissioning)
-		* 1.2.4. [:bulb: Quick Guide for [docker-compose](https://docs.docker.com/compose/)](#bulb:QuickGuidefordocker-composehttps:docs.docker.comcompose)
+	* 1.3. [Upgrading the version of Geth](#UpgradingtheversionofGeth)
+	* 1.4. [Updating the list of permissioned nodes](#Updatingthelistofpermissionednodes)
+		* 1.4.1. [:bulb: Quick Guide for [docker-compose](https://docs.docker.com/compose/)](#bulb:QuickGuidefordocker-composehttps:docs.docker.comcompose)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -172,6 +174,51 @@ To restart the node:
 $ docker compose restart
 ```
 
-####  1.2.4. <a name='bulb:QuickGuidefordocker-composehttps:docs.docker.comcompose'></a>:bulb: Quick Guide for [docker-compose](https://docs.docker.com/compose/)
+###  1.3. <a name='UpgradingtheversionofGeth'></a>Upgrading the version of Geth
+
+You can have the latest version of Geth for the Alastria RedT network simply by running the following:
+
+Stop the node:
+
+```bash
+$ docker compose down
+```
+
+Upgrade the binaries in the `bin` subdirectory:
+
+```bash
+$ ./updategeth.sh
+```
+
+After the command runs, you should see a message with the version of Geth that has been installed.
+
+Start again the node:
+
+```bash
+$ docker compose up -d
+```
+
+You can check that it starts properly by looking at the logs:
+
+```bash
+$ ./logs.sh
+```
+
+###  1.4. <a name='Updatingthelistofpermissionednodes'></a>Updating the list of permissioned nodes
+
+Periodically (e.g., every week) you should do this in order to have the latest list of boot nodes so your node will not have any problem with connectivity to the network.
+
+```bash
+$ ./updateperm.sh
+```
+
+And restart the node to pick the changes:
+
+```bash
+$ docker compose restart
+```
+
+
+####  1.4.1. <a name='bulb:QuickGuidefordocker-composehttps:docs.docker.comcompose'></a>:bulb: Quick Guide for [docker-compose](https://docs.docker.com/compose/)
 
 

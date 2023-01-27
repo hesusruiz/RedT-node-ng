@@ -50,7 +50,7 @@ ISTANBUL_REQUESTTIMEOUT="10000"
 SYNCMODE="full"
 
 # Cache size in MB
-CACHE="4096"
+CACHE="0"
 
 # Blockchain garbage collection mode
 GCMODE="full"
@@ -81,15 +81,13 @@ VMODULE="consensus/istanbul/ibft/core/core.go=5"
 
 # Any additional arguments depending on the type of node
 if [ $NODE_TYPE = "validator" ]; then
-    # These are for a Validator node
-    ADDITIONAL_ARGS="--txlookuplimit 1000 --immutabilitythreshold 2000 --cache.database 10 --cache.trie 15 --cache.gc 50 --cache.snapshot 25 --mine --miner.threads $(grep -c processor /proc/cpuinfo)"
+    ADDITIONAL_ARGS="--txlookuplimit 1000 --immutabilitythreshold 2000 --mine --miner.threads $(grep -c processor /proc/cpuinfo)"
 fi
-
 # Any additional arguments depending on the type of node
 if [ $NODE_TYPE = "regular" ]; then
-    # These are for a Regular node
-    ADDITIONAL_ARGS="--immutabilitythreshold 2000 --cache.database 10 --cache.trie 15 --cache.gc 50 --cache.snapshot 25"
+    ADDITIONAL_ARGS="--immutabilitythreshold 2000"
 fi
+
 
 ###############################################################################
 # PRIVATE KEY FOR YOUR NODE
@@ -143,10 +141,15 @@ COMPATIBILITY_ARGS="--snapshot=false \
 # to another machine and start the node with another configuration. This avoids having to
 # synchronise the new machine from the beginning.
 
-# Copy the permissioned and static nodes lists
-# In the case of RedT they are exactly the same
-cp ${CONFIG_DIR}/permissioned-nodes.json ${DATA_DIR}/permissioned-nodes.json
-cp ${CONFIG_DIR}/permissioned-nodes.json ${DATA_DIR}/static-nodes.json
+# Copy the permissioned and static nodes lists, depending on the type of node
+if [ $NODE_TYPE = "validator" ]; then
+    cp ${CONFIG_DIR}/validator_permissioned.json ${DATA_DIR}/permissioned-nodes.json
+    cp ${CONFIG_DIR}/validator_permissioned.json ${DATA_DIR}/static-nodes.json
+fi
+if [ $NODE_TYPE = "regular" ]; then
+    cp ${CONFIG_DIR}/regular_permissioned.json ${DATA_DIR}/permissioned-nodes.json
+    cp ${CONFIG_DIR}/regular_permissioned.json ${DATA_DIR}/static-nodes.json
+fi
 
 # Tell Geth not to use any private transaction configuration
 # But you could use Quorum PTM (Private Transaction Manager) if you collaborate with other nodes using it.
