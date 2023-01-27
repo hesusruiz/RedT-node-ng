@@ -7,7 +7,7 @@
 		* 1.2.3. [Permissioning](#Permissioning)
 	* 1.3. [Upgrading the version of Geth](#UpgradingtheversionofGeth)
 	* 1.4. [Updating the list of permissioned nodes](#Updatingthelistofpermissionednodes)
-	* 1.5. [:bulb: Quick Guide for [docker-compose](https://docs.docker.com/compose/)](#bulb:QuickGuidefordocker-composehttps:docs.docker.comcompose)
+	* 1.5. [Quick Guide for [docker-compose](https://docs.docker.com/compose/)](#QuickGuidefordocker-composehttps:docs.docker.comcompose)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -219,6 +219,6 @@ $ docker compose restart
 ```
 
 
-###  1.5. <a name='bulb:QuickGuidefordocker-composehttps:docs.docker.comcompose'></a>:bulb: Quick Guide for [docker-compose](https://docs.docker.com/compose/)
+###  1.5. <a name='QuickGuidefordocker-composehttps:docs.docker.comcompose'></a>Quick Guide for [docker-compose](https://docs.docker.com/compose/)
 
 
